@@ -68,11 +68,11 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       <button data-nav="cobranza" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.66 0-3 .9-3 2s1.34 2 3 2 3 .9 3 2-1.34 2-3 2m0-8V6m0 10v2M4 12a8 8 0 1116 0 8 8 0 01-16 0z"/></svg>
         <span>Cobranza</span>
-      </button>
+      </button><!----
       <button data-nav="facturacion" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         <span>Facturación</span>
-      </button>
+      </button>-->
       <button data-nav="afiliacion" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM19 8v6M22 11h-6"/></svg>
         <span>Afiliación</span>
@@ -681,15 +681,11 @@ function renderEstadoCuentaDetalle(cid){
       <div class="px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-4">
         <div>
           <div class="text-[11px] text-slate-400 font-semibold uppercase">Contratante</div>
-          <div class="font-bold text-slate-800">${c.nombre} <span class="text-slate-400 font-normal">· Titular: ${c.nombre.split(' ')[0]}</span></div>
-        </div>
-        <div class="flex flex-col gap-0.5">
-          ${planRows.map(p=>`
-            <div class="flex items-center gap-3 text-xs">
-              <span class="font-semibold text-slate-700 w-40 truncate">${p.label} <span class="text-slate-400 font-normal">[${p.count}]</span></span>
-              <span class="text-slate-400">VIGENCIA</span>
-              <span class="text-slate-600">${p.vigInicio} - ${p.vigFin}</span>
-            </div>`).join('')}
+          <div class="font-bold text-slate-800">${c.nombre} <span class="text-slate-400 font-normal">· Titular: ${c.nombre.split(' ')[0]}</span><br>
+            ${planRows.map(p=>`
+              <span class="font-semibold text-slate-700 w-40 truncate">${p.label} <span class="text-slate-400 font-normal">(${p.count})</span></span>
+            `).join('')}
+          </div>
         </div>
         <button id="ec-volver" class="text-slate-500 hover:text-slate-800 text-sm font-semibold flex items-center gap-1">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg> Volver
@@ -1052,7 +1048,16 @@ function renderCobranza(){
         <div class="table-scroll rounded-lg border border-slate-200">
           <table class="grid-table w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500">
-              <tr><th class="px-3 py-2.5">Item</th><th class="px-3 py-2.5 text-center">Opc</th><th class="px-3 py-2.5">Nro liquidación</th><th class="px-3 py-2.5">Fecha generación</th><th class="px-3 py-2.5 text-right">Monto</th><th class="px-3 py-2.5">Estado</th><th class="px-3 py-2.5 text-center">Detalle</th><th class="px-3 py-2.5">Estado de Procesamiento</th></tr>
+              <tr>
+                <th class="px-3 py-2.5">Item</th>
+                <th class="px-3 py-2.5 text-center">Opc</th>
+                <th class="px-3 py-2.5">Nro liquidación</th>
+                <th class="px-3 py-2.5">Fecha generación</th>
+                <th class="px-3 py-2.5 text-right">Monto</th>
+                <th class="px-3 py-2.5">Estado</th>
+                <th class="px-3 py-2.5 text-center">Detalle</th>
+                <th class="px-3 py-2.5">Estado de Procesamiento</th>
+              </tr>
             </thead>
             <tbody id="cob-tbody"></tbody>
           </table>
@@ -1199,7 +1204,17 @@ function renderCobranzaDetalle(loteId){
         <div class="table-scroll rounded-lg border border-slate-200">
           <table class="grid-table w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500">
-              <tr><th class="px-3 py-2.5 text-center">Opc</th><th class="px-3 py-2.5">Documento</th><th class="px-3 py-2.5">Contratante</th><th class="px-3 py-2.5">Periodo</th><th class="px-3 py-2.5 text-right">Monto</th><th class="px-3 py-2.5">Estado de pago</th><th class="px-3 py-2.5 text-center">Intentos</th><th class="px-3 py-2.5">Respuesta de Niubiz</th></tr>
+              <tr>
+                <th class="px-3 py-2.5 text-center">Opc</th>
+                <th class="px-3 py-2.5">Documento</th>
+                <th class="px-3 py-2.5">Contratante</th>
+                <th class="px-3 py-2.5">Periodo</th>
+                <th class="px-3 py-2.5 text-right">Cuota</th>
+                <th class="px-3 py-2.5 text-right">Descuento/Cargo</th>
+                <th class="px-3 py-2.5 text-right">Monto</th>
+                <th class="px-3 py-2.5">Estado de pago</th>
+                <th class="px-3 py-2.5 text-center">Intentos</th>
+                <th class="px-3 py-2.5">Respuesta de Niubiz</th></tr>
             </thead>
             <tbody id="cobdet-tbody"></tbody>
           </table>
@@ -1222,6 +1237,8 @@ function renderCobDetRows(l){
       <td class="px-3 py-2.5">${l.detalle[idx].documento}</td>
       <td class="px-3 py-2.5 font-medium">${l.detalle[idx].contratante}</td>
       <td class="px-3 py-2.5 text-slate-500">${l.detalle[idx].periodo}</td>
+      <td class="px-3 py-2.5 text-right font-semibold">${l.detalle[idx].montoTotal.toFixed(2)}</td>
+      <td class="px-3 py-2.5 text-right font-semibold">0.00</td>
       <td class="px-3 py-2.5 text-right font-semibold">${l.detalle[idx].montoTotal.toFixed(2)}</td>
       <td class="px-3 py-2.5">${estadoPagoBadge(l.detalle[idx].estadoPago)}</td>
       <td class="px-3 py-2.5 text-center">${l.detalle[idx].intentos}</td>
@@ -1412,8 +1429,12 @@ function openDescuentoCargoModal(l, idx){
       <div class="flex items-center justify-between mb-1"><div class="font-bold text-slate-800">Descuento / Cargo</div><button onclick="closeModal()" class="text-slate-400 hover:text-slate-700 text-xl leading-none">&times;</button></div>
       <div class="text-xs text-slate-500 mb-4">${d.documento} — ASEGURADO: ${d.contratante}</div>
       <div class="flex gap-6 mb-3 text-sm">
-        <label class="flex items-center gap-2"><input type="radio" name="dc-tipo" value="debito" checked> Débito</label>
-        <label class="flex items-center gap-2"><input type="radio" name="dc-tipo" value="credito"> Crédito</label>
+        
+        <label class="flex items-center gap-2"><input type="radio" name="dc-tipo" value="debito" checked> Cargo(Débito)</label>
+
+                <label class="flex items-center gap-2"><input type="radio" name="dc-tipo" value="credito"> Descuento(Crédito)</label>
+
+       
       </div>
       <label class="block text-xs font-semibold text-slate-500 mb-1">Motivo</label>
       <textarea id="dc-motivo" rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm mb-3" placeholder="Ej: Ajuste por diferencia de tipo de cambio en cobro parcial"></textarea>
@@ -1492,7 +1513,14 @@ function renderFacturacion(){
         <div class="table-scroll rounded-lg border border-slate-200">
           <table class="grid-table w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500">
-              <tr><th class="px-3 py-2.5">Item</th><th class="px-3 py-2.5 text-center">Opc</th><th class="px-3 py-2.5">Nro liquidación</th><th class="px-3 py-2.5">Fecha generación</th><th class="px-3 py-2.5 text-right">Monto</th><th class="px-3 py-2.5">Estado</th><th class="px-3 py-2.5 text-center">Detalle</th></tr>
+              <tr>
+                <th class="px-3 py-2.5">Item</th>
+                <th class="px-3 py-2.5">Nro liquidación</th>
+                <th class="px-3 py-2.5">Fecha generación</th>
+                <th class="px-3 py-2.5 text-right">Monto</th>
+                <th class="px-3 py-2.5">Estado LQ</th>
+                <th class="px-3 py-2.5 text-center">Detalle</th>
+              </tr>
             </thead>
             <tbody id="fac-tbody"></tbody>
           </table>
@@ -1513,9 +1541,7 @@ function renderFacRows(list){
   tbody.innerHTML = list.map((l,i)=>`
     <tr class="border-t border-slate-100 hover:bg-slate-50">
       <td class="px-3 py-2.5 text-slate-500">${i+1}</td>
-      <td class="px-3 py-2.5 text-center">
-        <button class="bg-sky-600 hover:bg-sky-700 disabled:bg-slate-300 text-white text-[11px] font-semibold px-2.5 py-1.5 rounded-lg gen-comprobantes" data-lote="${l.id}" ${loteEstadoLQ(l)==='PENDIENTE'?'disabled':''}>Genera Comprobantes</button>
-      </td>
+    
       <td class="px-3 py-2.5"><button class="open-fac text-sky-700 font-semibold hover:underline" data-lote="${l.id}">${l.nroLiquidacion}</button></td>
       <td class="px-3 py-2.5 text-slate-500">${l.fechaGeneracion}</td>
       <td class="px-3 py-2.5 text-right font-semibold">${loteMontoTotal(l).toFixed(2)}</td>
@@ -1566,7 +1592,16 @@ function renderFacturacionDetalle(loteId){
         <div class="table-scroll rounded-lg border border-slate-200">
           <table class="grid-table w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500">
-              <tr><th class="px-3 py-2.5 text-center">Opc</th><th class="px-3 py-2.5">Documento</th><th class="px-3 py-2.5">Contratante</th><th class="px-3 py-2.5">Periodo</th><th class="px-3 py-2.5">Comprobante</th><th class="px-3 py-2.5 text-right">Monto</th><th class="px-3 py-2.5">Estado comprobante</th></tr>
+              <tr>
+                <th class="px-3 py-2.5 text-center">Opc</th>
+                <th class="px-3 py-2.5">Documento</th>
+                <th class="px-3 py-2.5">Contratante</th>
+                <th class="px-3 py-2.5">Periodo</th>
+                <th class="px-3 py-2.5">Estado pago</th>
+                <th class="px-3 py-2.5">Comprobante</th>
+                <th class="px-3 py-2.5 text-right">Monto</th>
+                <th class="px-3 py-2.5">Estado comprobante</th>
+                </tr>
             </thead>
             <tbody id="facdet-tbody"></tbody>
           </table>
@@ -1589,6 +1624,7 @@ function renderFacDetRows(l){
       <td class="px-3 py-2.5">${l.detalle[idx].documento}</td>
       <td class="px-3 py-2.5 font-medium">${l.detalle[idx].contratante}</td>
       <td class="px-3 py-2.5 text-slate-500">${l.detalle[idx].periodo}</td>
+      <td class="px-3 py-2.5">${estadoPagoBadge(l.detalle[idx].estadoPago)}</td>
       <td class="px-3 py-2.5">${l.detalle[idx].comprobante? `<button class="ver-comp text-sky-700 font-semibold hover:underline" data-idx="${idx}">${l.detalle[idx].comprobante}</button>`:'—'}</td>
       <td class="px-3 py-2.5 text-right font-semibold">${l.detalle[idx].montoTotal.toFixed(2)}</td>
       <td class="px-3 py-2.5">${l.detalle[idx].estadoComprobante? (l.detalle[idx].estadoComprobante==='ANULADO'? badge('ANULADO','muted') : badge('ACTIVO','ok')) : badge('SIN EMITIR','muted')}</td>
@@ -1962,6 +1998,14 @@ function openFrecuenciaModal(a){
         <select id="fr-formapago" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
           ${['Tarjeta de crédito','Débito automático','Transferencia / Depósito'].map(o=>`<option ${o===f.formaPago?'selected':''}>${o}</option>`).join('')}
         </select>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-3"> <div class="mb-3">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Fecha de Cobro</label>
+            <input type="number" id="fr-fecha-cobro" value="07" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div><br><label class="block text-xs font-semibold text-slate-500 mb-1">Cada Mes</label>
+          
+        </div>
       </div>
       <label class="flex items-center gap-2 text-sm mb-4"><input type="checkbox" id="fr-renov" ${f.renovacionAutomatica?'checked':''} class="rounded"> Renovación automática (1 mes antes del vencimiento)</label>
       <div class="flex justify-end gap-2">
